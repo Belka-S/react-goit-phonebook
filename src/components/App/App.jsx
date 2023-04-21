@@ -1,7 +1,9 @@
 import { Component } from 'react';
 
+import { Section } from 'components/Section/Section';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
+import { Filter } from 'components/Filter/Filter';
 
 export class App extends Component {
   state = {
@@ -14,31 +16,53 @@ export class App extends Component {
     filter: '',
   };
 
-  addContact = contact =>
-    this.setState(prevState =>
-      !prevState.contacts.some(el => el.name === contact.name)
-        ? { contacts: [...prevState.contacts, contact] }
-        : alert(`${contact.name} is already in contacts!`)
+  addContact = contact => {
+    const isInContacts = this.state.contacts.some(
+      el => el.name.toLowerCase() === contact.name.toLowerCase()
     );
-
-  findContact = evt => this.setState({ filter: evt.target.value });
+    if (isInContacts) {
+      return alert(`${contact.name} is already in contacts!`);
+    }
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, contact],
+    }));
+  };
 
   deleteContact = contact =>
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(el => el.id !== contact.id),
     }));
 
-  render = () => (
-    <>
-      <ContactForm title={'Phonebook'} handleSubmit={this.addContact} />
+  setFilter = evt => this.setState({ filter: evt.target.value });
 
-      <ContactList
-        title={'Contacts'}
-        contacts={this.state.contacts}
-        filterValue={this.state.filter}
-        handleSearch={this.findContact}
-        handleDelete={this.deleteContact}
-      />
-    </>
-  );
+  getFiltredContacts = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(el =>
+      el.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+  render() {
+    const filtredContacts = this.getFiltredContacts();
+
+    return (
+      <>
+        <Section mainTitle={'Phonebook'}>
+          <ContactForm handleSubmit={this.addContact} />
+        </Section>
+
+        <Section title={'Contacts'}>
+          <Filter
+            filterValue={this.state.filter}
+            handleSearch={this.setFilter}
+          />
+          <br />
+          <ContactList
+            contacts={filtredContacts}
+            handleDelete={this.deleteContact}
+          />
+        </Section>
+      </>
+    );
+  }
 }
