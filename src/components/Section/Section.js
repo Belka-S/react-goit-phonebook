@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Container } from './Section.styled';
 
 export const Section = ({ mainTitle, title, children }) => (
@@ -7,3 +9,12 @@ export const Section = ({ mainTitle, title, children }) => (
     {children}
   </Container>
 );
+
+Section.propTypes = {
+  mainTitle: PropTypes.string,
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
