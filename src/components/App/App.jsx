@@ -16,14 +16,13 @@ export class App extends Component {
 
   componentDidMount() {
     const lsContacts = JSON.parse(localStorage.getItem(LS_KEY));
+
+    lsContacts && this.setState({ contacts: lsContacts });
     // if (lsContacts) {
     //   this.state({ lsContacts });
-    //   console.log('1', lsContacts);
     // } else {
-    //   this.setState({ contacts });
-    //   console.log(contacts);
+    //   this.setState({ contacts: data });
     // }
-    lsContacts && this.setState({ contacts: lsContacts });
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.contacts !== this.state.contacts)
