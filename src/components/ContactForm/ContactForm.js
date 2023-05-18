@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import { nanoid } from 'nanoid';
 import { object, string } from 'yup';
-
-import {
-  Form,
-  Field,
-  Label,
-  ErrorMessage,
-} from 'components/ContactForm/ContactForm.styled';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+import { Form, Field, Label } from 'components/ContactForm/ContactForm.styled';
+import { ErrorMessage } from 'components/ContactForm/ContactForm.styled';
 
 const ContactSchema = object().shape({
   name: string()
@@ -29,10 +24,12 @@ const ContactSchema = object().shape({
     .required('Required'),
 });
 
-export const ContactForm = ({ handleSubmit }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+
   const onSubmit = (values, actions) => {
-    handleSubmit({ ...values, id: nanoid() });
     actions.resetForm();
+    dispatch(addContact(values));
   };
 
   return (
@@ -56,8 +53,4 @@ export const ContactForm = ({ handleSubmit }) => {
       </Form>
     </Formik>
   );
-};
-
-ContactForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
 };
