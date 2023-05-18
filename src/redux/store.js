@@ -4,8 +4,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { FLUSH, REHYDRATE, PAUSE } from 'redux-persist';
 import { PERSIST, PURGE, REGISTER } from 'redux-persist';
 
-import { contactsReducer } from './contactsSlice';
-import { filterReducer } from './filterSlice';
+import { contactsReducer } from './contactsReducer';
+import { filterReducer } from './filterReducer';
 
 // ----------------persistReducer---------------- //
 
