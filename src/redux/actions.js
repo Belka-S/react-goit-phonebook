@@ -1,11 +1,27 @@
-import { createAction, nanoid } from '@reduxjs/toolkit';
+// import { createAction, nanoid } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 
-// to describe the type of action as an argument
-export const setFilterValue = createAction('filter/setFilterValue');
+export const setFilterValue = filterValue => ({
+  type: 'filter/setFilterValue',
+  payload: filterValue,
+});
 
-export const deleteContact = createAction('contacts/deleteContact');
+export const deleteContact = contact => ({
+  type: 'contacts/deleteContact',
+  payload: contact,
+});
 
-//  to write additional logic for creating a payload value
-export const addContact = createAction('contacts/addContact', values => ({
+export const addContact = values => ({
+  type: 'contacts/addContact',
   payload: { ...values, id: nanoid() },
-}));
+});
+
+// -----------------------------toolkit----------------------------- //
+
+// export const setFilterValue = createAction('filter/setFilterValue');
+
+// export const deleteContact = createAction('contacts/deleteContact');
+
+// export const addContact = createAction('contacts/addContact', values => ({
+//   payload: { ...values, id: nanoid() },
+// }));

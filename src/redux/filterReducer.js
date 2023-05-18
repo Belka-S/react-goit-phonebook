@@ -1,9 +1,21 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { setFilterValue } from './actions';
+// import { createReducer } from '@reduxjs/toolkit';
+// import { setFilterValue } from './actions';
 
-export const filterReducer = createReducer('', {
-  [setFilterValue]: (state, action) => action.payload,
-});
+export const filterReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'filter/setFilterValue':
+      return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+// -------------------createReducer------------------- //
+
+// export const filterReducer = createReducer('', {
+//   [setFilterValue]: (state, action) => action.payload,
+// });
 
 // ---------------------createSlice--------------------- //
 
