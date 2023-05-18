@@ -1,11 +1,12 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { createStore } from 'redux';
+import { devToolsEnhancer } from '@redux-devtools/extension';
+import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
-import { FLUSH, REHYDRATE, PAUSE } from 'redux-persist';
-import { PERSIST, PURGE, REGISTER } from 'redux-persist';
-
-import { contactsReducer } from './contactsSlice';
-import { filterReducer } from './filterSlice';
+// import { FLUSH, REHYDRATE, PAUSE } from 'redux-persist';
+// import { PERSIST, PURGE, REGISTER } from 'redux-persist';
+import { contactsReducer } from './contactsReducer';
+import { filterReducer } from './filterReducer';
 
 // ----------------persistReducer---------------- //
 
@@ -24,15 +25,9 @@ const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
 // ----------------configureStore---------------- //
 
-export const store = configureStore({
-  reducer: { phoneBook: persistedReducer },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-});
+const enhancer = devToolsEnhancer();
+
+export const store = createStore(persistedReducer, enhancer);
 
 // -----------------persistStore----------------- //
 
