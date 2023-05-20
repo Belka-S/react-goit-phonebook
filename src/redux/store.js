@@ -20,12 +20,13 @@ const rootReducer = combineReducers({
   filter: filterReducer,
 });
 
-const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);
 
 // ----------------configureStore---------------- //
 
 export const store = configureStore({
-  reducer: { phoneBook: persistedReducer },
+  // reducer: { phoneBook: persistedReducer },
+  reducer: persistedRootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
