@@ -5,12 +5,6 @@ import contacts from 'data/contacts.json';
 
 export const contactsReducer = createReducer(contacts, {
   [addContact]: (state, action) => {
-    const isInContacts = state.some(
-      el => el.name.toLowerCase() === action.payload.name.toLowerCase()
-    );
-    if (isInContacts) {
-      return alert(`${action.payload.name} is already in contacts!`);
-    }
     state.push(action.payload);
   },
 

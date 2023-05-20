@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getFilterValue } from 'redux/seletors';
+import { selectFilterValue } from 'redux/seletors';
 import { setFilterValue } from 'redux/actions';
 import { Label, Button } from './Filter.styled';
 
 export const Filter = () => {
-  const filterValue = useSelector(getFilterValue);
+  const filterValue = useSelector(selectFilterValue);
   const dispatch = useDispatch();
   const handleSearch = e => dispatch(setFilterValue(e.target.value));
 
