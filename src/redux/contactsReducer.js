@@ -5,15 +5,8 @@ import contacts from 'data/contacts.json';
 
 export const contactsReducer = (state = contacts, action) => {
   switch (action.type) {
-    case 'contacts/addContact': {
-      const isInContacts = state.some(
-        el => el.name.toLowerCase() === action.payload.name.toLowerCase()
-      );
-      if (isInContacts) {
-        return alert(`${action.payload.name} is already in contacts!`);
-      }
+    case 'contacts/addContact':
       return [...state, action.payload];
-    }
 
     case 'contacts/deleteContact':
       return state.filter(el => el.id !== action.payload.id);
