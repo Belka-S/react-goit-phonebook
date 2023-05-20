@@ -1,9 +1,10 @@
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { Form, Field, Label } from 'components/ContactForm/ContactForm.styled';
 import { ErrorMessage } from 'components/ContactForm/ContactForm.styled';
+import { getContacts } from 'redux/seletors';
 
 const ContactSchema = object().shape({
   name: string()
@@ -26,10 +27,18 @@ const ContactSchema = object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const onSubmit = (values, actions) => {
-    actions.resetForm();
+    const isInContacts = contacts.some(
+      el => el.name.toLowerCase() === values.name.toLowerCase()
+    );
+    if (isInContacts) {
+      return alert(`${values.name} is already in contacts!`);
+    }
+
     dispatch(addContact(values));
+    actions.resetForm();
   };
 
   return (
