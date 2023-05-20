@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { Form, Field, Label } from 'components/ContactForm/ContactForm.styled';
 import { ErrorMessage } from 'components/ContactForm/ContactForm.styled';
-import { getContacts } from 'redux/seletors';
+import { selectContacts } from 'redux/seletors';
 
 const ContactSchema = object().shape({
   name: string()
@@ -27,7 +27,7 @@ const ContactSchema = object().shape({
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const onSubmit = (values, actions) => {
     const isInContacts = contacts.some(
