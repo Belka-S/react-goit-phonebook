@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { Form, Field, Label } from 'components/ContactForm/ContactForm.styled';
 import { ErrorMessage } from 'components/ContactForm/ContactForm.styled';
 import { selectContacts } from 'redux/seletors';

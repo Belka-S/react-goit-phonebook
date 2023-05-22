@@ -12,7 +12,7 @@ import { filterReducer } from './filterSlice';
 const rootPersistConfig = {
   key: 'phoneBook',
   storage,
-  // blacklist: ['filter'],
+  blacklist: ['contacts'],
 };
 
 const rootReducer = combineReducers({
@@ -25,7 +25,6 @@ const persistedRootReducer = persistReducer(rootPersistConfig, rootReducer);
 // ----------------configureStore---------------- //
 
 export const store = configureStore({
-  // reducer: { phoneBook: persistedReducer },
   reducer: persistedRootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
