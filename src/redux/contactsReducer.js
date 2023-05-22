@@ -11,8 +11,5 @@ export const contactsReducer = createReducer(contacts, {
   [deleteContact]: (state, action) =>
     state.filter(el => el.id !== action.payload.id),
 
-  [fetchAsyncContacts]: (state, action) => {
-    console.log(action);
-    return action.payload;
-  },
+  [fetchAsyncContacts]: (state, action) => action.payload,
 });
