@@ -12,7 +12,7 @@ import { filterReducer } from './filterReducer';
 const rootPersistConfig = {
   key: 'phoneBook',
   storage,
-  // blacklist: ['filter'],
+  blacklist: ['contacts'],
 };
 
 const rootReducer = combineReducers({
@@ -25,7 +25,7 @@ const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 // ----------------configureStore---------------- //
 
 export const store = configureStore({
-  reducer: { phoneBook: persistedReducer },
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

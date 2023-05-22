@@ -9,3 +9,10 @@ export const deleteContact = createAction('contacts/deleteContact');
 export const addContact = createAction('contacts/addContact', values => ({
   payload: { ...values, id: nanoid() },
 }));
+
+export const fetchAsyncContacts = createAction(
+  'contacts/fetchContacts',
+  contacts => ({
+    payload: contacts,
+  })
+);
