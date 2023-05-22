@@ -30,6 +30,7 @@ const contactsSlice = createSlice({
     },
     [addContact.rejected]: (state, action) => {
       state.isLoading = false;
+      state.error = action.payload;
     },
     // deleteContact
     [deleteContact.pending]: state => {
@@ -42,6 +43,7 @@ const contactsSlice = createSlice({
     },
     [deleteContact.rejected]: (state, action) => {
       state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
