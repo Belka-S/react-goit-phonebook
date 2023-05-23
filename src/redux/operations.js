@@ -2,7 +2,7 @@ import * as mockAPI from 'servises/mockAPI';
 import * as actions from 'redux/actions';
 
 // fetch Contacts
-export const fetchContactsOperation = () => async dispatch => {
+export const fetchContactsThunk = () => async dispatch => {
   dispatch(actions.fetchContactsPending());
 
   try {
@@ -13,7 +13,7 @@ export const fetchContactsOperation = () => async dispatch => {
   }
 };
 // add Contact
-export const addContactOperation = value => async dispatch => {
+export const addContactThunk = value => async dispatch => {
   dispatch(actions.addContactPending());
 
   try {
@@ -24,7 +24,7 @@ export const addContactOperation = value => async dispatch => {
   }
 };
 // delete Contact
-export const deleteContactOperation = id => async dispatch => {
+export const deleteContactThunk = id => async dispatch => {
   dispatch(actions.deleteContactPending());
 
   try {

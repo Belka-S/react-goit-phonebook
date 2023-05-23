@@ -37,7 +37,7 @@ export const ContactForm = () => {
       return alert(`${values.name} is already in contacts!`);
     }
 
-    dispatch(operations.addContactOperation(values));
+    dispatch(operations.addContactThunk(values));
     actions.resetForm();
   };
 

@@ -10,7 +10,7 @@ export const ContactList = () => {
   const filterValue = useSelector(selectFilterValue);
 
   useEffect(() => {
-    dispatch(operations.fetchContactsOperation());
+    dispatch(operations.fetchContactsThunk());
   }, [dispatch]);
 
   const filtredContacts = contacts.filter(el =>
@@ -23,9 +23,7 @@ export const ContactList = () => {
         <li key={contact.id}>
           {contact.name}: {contact.number}
           <button
-            onClick={() =>
-              dispatch(operations.deleteContactOperation(contact.id))
-            }
+            onClick={() => dispatch(operations.deleteContactThunk(contact.id))}
           >
             Delete
           </button>
