@@ -1,9 +1,21 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Section } from 'components/Section/Section';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
+import { selectIsError, selectIsLoading } from 'redux/seletors';
 
 export const App = () => {
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectIsError);
+
+  useEffect(() => {
+    if (!error) return;
+
+    alert(error);
+  }, [error]);
+
   return (
     <>
       <Section mainTitle={'Phonebook'}>
@@ -12,6 +24,7 @@ export const App = () => {
       <Section title={'Contacts'}>
         <Filter /> <br />
         <ContactList />
+        {isLoading && <div>Loading...</div>}
       </Section>
     </>
   );

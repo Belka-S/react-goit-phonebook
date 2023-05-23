@@ -1,18 +1,16 @@
-import { createAction, nanoid } from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 
-// to describe the type of action as an argument
 export const setFilterValue = createAction('filter/setFilterValue');
 
-export const deleteContact = createAction('contacts/deleteContact');
-
-//  to write additional logic for creating a payload value
-export const addContact = createAction('contacts/addContact', values => ({
-  payload: { ...values, id: nanoid() },
-}));
-
-export const fetchAsyncContacts = createAction(
-  'contacts/fetchContacts',
-  contacts => ({
-    payload: contacts,
-  })
-);
+// pending
+export const fetchContactsPending = createAction('fetchContacts/Pending');
+export const addContactPending = createAction('addContact/Pending');
+export const deleteContactPending = createAction('deleteContact/Pending');
+// fulfilled
+export const fetchContactsFulfilled = createAction('fetchContacts/Fulfilled');
+export const addContactFulfilled = createAction('addContact/Fulfilled');
+export const deleteContactFulfilled = createAction('deleteContact/Fulfilled');
+// rejected
+export const fetchContactsRejected = createAction('fetchContacts/Rejected');
+export const addContactRejected = createAction('addContact/Rejected');
+export const deleteContactRejected = createAction('deleteContact/Rejected');

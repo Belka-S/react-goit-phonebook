@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilterValue } from 'redux/seletors';
-import { deleteContact } from 'redux/actions';
-import { fetchContactsOperation } from 'redux/operations';
+import * as operations from 'redux/operations';
 import { List } from './ContactList.styled';
 
 export const ContactList = () => {
@@ -11,7 +10,7 @@ export const ContactList = () => {
   const filterValue = useSelector(selectFilterValue);
 
   useEffect(() => {
-    dispatch(fetchContactsOperation());
+    dispatch(operations.fetchContactsOperation());
   }, [dispatch]);
 
   const filtredContacts = contacts.filter(el =>
@@ -23,7 +22,11 @@ export const ContactList = () => {
       {filtredContacts.map(contact => (
         <li key={contact.id}>
           {contact.name}: {contact.number}
-          <button onClick={() => dispatch(deleteContact(contact))}>
+          <button
+            onClick={() =>
+              dispatch(operations.deleteContactOperation(contact.id))
+            }
+          >
             Delete
           </button>
         </li>
