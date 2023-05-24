@@ -1,5 +1,8 @@
-import { combineReducers, createSlice } from '@reduxjs/toolkit';
+import { combineReducers, createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
+
+const operations = [fetchContacts, addContact, deleteContact];
+const fn = type => operations.map(el => el[type]);
 
 // Contacts items
 const handleFetchContacts = (_, action) => action.payload;
@@ -19,38 +22,26 @@ const contactsItemsSlice = createSlice({
       .addCase(deleteContact.fulfilled, handleDeleteContact);
   },
 });
-
 // isLoading
 const contactsIsLoadingSlice = createSlice({
   name: 'isLoading',
   initialState: false,
   extraReducers: builder => {
     builder
-      .addMatcher(
-        action => action.type.endsWith('/pending'),
-        state => true
-      )
-      .addMatcher(
-        action => action.type.endsWith('/fulfilled' || '/rejected'),
-        state => false
-      );
+      .addMatcher(isAnyOf(...fn('pending')), state => true)
+      .addMatcher(isAnyOf(...fn('fulfilled')), state => false)
+      .addMatcher(isAnyOf(...fn('rejected')), state => false);
   },
 });
-
 // Error
 const contactsErrorSlice = createSlice({
   name: 'error',
   initialState: null,
   extraReducers: builder => {
     builder
-      .addMatcher(
-        action => action.type.endsWith('/pending' || '/fulfilled'),
-        state => null
-      )
-      .addMatcher(
-        action => action.type.endsWith('/rejected'),
-        (state, action) => action.payload
-      );
+      .addMatcher(isAnyOf(...fn('pending')), state => null)
+      .addMatcher(isAnyOf(...fn('fulfilled')), state => null)
+      .addMatcher(isAnyOf(...fn('rejected')), (_, action) => action.payload);
   },
 });
 
