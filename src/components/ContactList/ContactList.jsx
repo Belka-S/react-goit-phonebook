@@ -1,33 +1,37 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectFilterValue } from 'redux/seletors';
-// import { deleteContact } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import { selectFilterValue } from 'redux/seletors';
 import { List } from './ContactList.styled';
-import { fetchContacts, deleteContact } from 'redux/operations';
+import * as contactsAPI from 'redux/contactsAPI';
+import { OvalLoader } from 'components/Loader/OvalLoader';
 
 export const ContactList = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
   const filterValue = useSelector(selectFilterValue);
+  const { data: contacts } = contactsAPI.useGetContactsQuery();
+  const [deleteContact, result] = contactsAPI.useDeleteContactMutation();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const handleDeleteContact = async id => {
+    try {
+      await deleteContact(id);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
-  const filtredContacts = contacts.filter(el =>
+  const filtredContacts = contacts?.filter(el =>
     el.name.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   return (
     <List>
-      {filtredContacts.map(contact => (
+      {filtredContacts?.map(contact => (
         <li key={contact.id}>
           {contact.name}: {contact.number}
-          <button onClick={() => dispatch(deleteContact(contact.id))}>
+          <button onClick={() => handleDeleteContact(contact.id)}>
             Delete
           </button>
         </li>
       ))}
+      {result.isLoading && <OvalLoader />}
     </List>
   );
 };

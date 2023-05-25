@@ -4,19 +4,19 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { FLUSH, REHYDRATE, PAUSE } from 'redux-persist';
 import { PERSIST, PURGE, REGISTER } from 'redux-persist';
 
-import { contactsReducer } from './contactsSlice';
-import { filterReducer } from './filterSlice';
+import { filterReducer } from './slice';
+import { contactsAPI } from './contactsAPI';
 
 // ----------------persistReducer---------------- //
 
 const rootPersistConfig = {
   key: 'phoneBook',
   storage,
-  blacklist: ['contacts'],
+  blacklist: ['contactsAPI'],
 };
 
 const rootReducer = combineReducers({
-  contacts: contactsReducer,
+  [contactsAPI.reducerPath]: contactsAPI.reducer,
   filter: filterReducer,
 });
 
@@ -31,7 +31,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(contactsAPI.middleware),
 });
 
 // -----------------persistStore----------------- //

@@ -1,10 +1,8 @@
 import { Formik } from 'formik';
 import { object, string } from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/operations';
 import { Form, Field, Label } from 'components/ContactForm/ContactForm.styled';
 import { ErrorMessage } from 'components/ContactForm/ContactForm.styled';
-import { selectContacts } from 'redux/seletors';
+import * as contactsAPI from 'redux/contactsAPI';
 
 const ContactSchema = object().shape({
   name: string()
@@ -26,18 +24,26 @@ const ContactSchema = object().shape({
 });
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  const { data: contacts } = contactsAPI.useGetContactsQuery();
+  const [addContact, result] = contactsAPI.useAddContactMutation();
+
+  const handleAddContact = async values => {
+    try {
+      await addContact(values);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const onSubmit = (values, actions) => {
-    const isInContacts = contacts.some(
+    const isInContacts = contacts?.some(
       el => el.name.toLowerCase() === values.name.toLowerCase()
     );
     if (isInContacts) {
       return alert(`${values.name} is already in contacts!`);
     }
 
-    dispatch(addContact(values));
+    handleAddContact(values);
     actions.resetForm();
   };
 
@@ -58,7 +64,9 @@ export const ContactForm = () => {
           <Field type="tel" name="number" />
           <ErrorMessage name="number" component="div" />
         </Label>
-        <button type="submit">Add contact</button>
+        <button type="submit">
+          {!result.isLoading ? 'Add contact' : 'Loading...'}
+        </button>
       </Form>
     </Formik>
   );

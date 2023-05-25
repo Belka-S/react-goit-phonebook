@@ -1,21 +1,14 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { OvalLoader } from 'components/Loader/OvalLoader';
-
 import { Section } from 'components/Section/Section';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
-import { selectError, selectIsLoading } from 'redux/seletors';
+import * as contactsAPI from 'redux/contactsAPI';
+import { OvalLoader } from 'components/Loader/OvalLoader';
 
 export const App = () => {
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { error, isLoading } = contactsAPI.useGetContactsQuery();
 
-  useEffect(() => {
-    if (!error) return;
-    alert(error);
-  }, [error]);
+  error && alert(error);
 
   return (
     <>
