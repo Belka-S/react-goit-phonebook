@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, lazy } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Section } from 'components/Section/Section';
 import { AppBar } from 'components/AppBar/AppBar';
