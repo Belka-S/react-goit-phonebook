@@ -16,8 +16,6 @@ const rootPersistConfig = {
   whitelist: ['token'],
 };
 
-// const persistedAuthReducer = persistReducer(rootPersistConfig, filterReducer);
-
 const rootReducer = combineReducers({
   auth: persistReducer(rootPersistConfig, authReducer),
   contacts: contactsReducer,
