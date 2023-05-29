@@ -15,7 +15,23 @@ body {
   letter-spacing: 0.02em;
   line-height: 1.5;
   color: #000000;
-  background-color: #cfdae5;;
+  background-color: #cfdae5;
+
+  padding-left: 20px;
+  padding-right: 20px;
+   @media screen and (min-width: 320px) {
+    // max-width: 300px;
+  }
+  @media screen and (min-width: 768px) {
+    // max-width: 700px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+  @media screen and (min-width: 1280px) {
+    // max-width: 1150px;
+    padding-left: 100px;
+    padding-right: 100px;
+  }
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

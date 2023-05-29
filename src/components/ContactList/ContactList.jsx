@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilterValue } from 'redux/seletors';
-// import { deleteContact } from 'redux/contactsSlice';
 import { List } from './ContactList.styled';
-import { fetchContacts, deleteContact } from 'redux/operations';
+import { fetchContactsThunk } from 'redux/Contacts/contactsOperations';
+import { deleteContactThunk } from 'redux/Contacts/contactsOperations';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export const ContactList = () => {
   const filterValue = useSelector(selectFilterValue);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchContactsThunk());
   }, [dispatch]);
 
   const filtredContacts = contacts.filter(el =>
@@ -23,7 +23,7 @@ export const ContactList = () => {
       {filtredContacts.map(contact => (
         <li key={contact.id}>
           {contact.name}: {contact.number}
-          <button onClick={() => dispatch(deleteContact(contact.id))}>
+          <button onClick={() => dispatch(deleteContactThunk(contact.id))}>
             Delete
           </button>
         </li>

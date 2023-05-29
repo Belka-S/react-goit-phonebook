@@ -5,7 +5,6 @@ export const List = styled.ul`
   display: inline-flex;
   flex-direction: column;
   counter-reset: section;
-  /* outline: 1px solid tomato; */
 
   /* counter-reset: section; */
   /* list-style-type: none; */

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
+  position: relative;
+  line-height: 1.3;
+  background-color: #cfdae5;
   h1,
   h2 {
     margin-bottom: 5px;
@@ -9,18 +12,16 @@ export const Container = styled.section`
   h1 {
     font-size: 30px;
   }
-  padding: 10px 10px 0;
-  position: relative;
 
-  line-height: 1.3;
-  background-color: #cfdae5;
-
+  padding-top: ${({ paddingTop }) => paddingTop}px;
+  padding-bottom: ${({ paddingBottom }) => paddingBottom}px;
   @media screen and (min-width: 320px) {
     // max-width: 300px;
   }
   @media screen and (min-width: 768px) {
     // max-width: 700px;
-    padding: 15px 34px 0;
+    padding-top: ${({ paddingTop }) => paddingTop}px;
+    padding-bottom: ${({ paddingBottom }) => paddingBottom}px;
     h1,
     h2 {
       margin-bottom: 10px;
@@ -28,7 +29,8 @@ export const Container = styled.section`
   }
   @media screen and (min-width: 1280px) {
     // max-width: 1150px;
-    padding: 30px 65px 0;
+    padding-top: ${({ paddingTop }) => paddingTop}px;
+    padding-bottom: ${({ paddingBottom }) => paddingBottom}px;
     h1,
     h2 {
       margin-bottom: 20px;
