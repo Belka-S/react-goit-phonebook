@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { Header, NaviLink, Div } from './AppBar.styled';
 import { logoutThunk } from 'redux/Auth/authOperations';
 import { useAuth } from 'hooks/useAuth';
+import { OvalLoader } from 'components/Loader/OvalLoader';
+
 export const AppBar = () => {
   const { isLoggedIn } = useAuth();
 
@@ -15,7 +17,7 @@ export const AppBar = () => {
         {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </Header>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<OvalLoader />}>
         <Outlet />
       </Suspense>
     </>

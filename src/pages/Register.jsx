@@ -4,7 +4,7 @@ import { Section } from 'components/Section/Section';
 import { INPUT_NAME } from 'servises/constants';
 import { registerThunk } from 'redux/Auth/authOperations';
 
-export const Register = () => {
+const Register = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -72,3 +72,5 @@ export const Register = () => {
     </Section>
   );
 };
+
+export default Register;

@@ -7,7 +7,7 @@ import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 import { selectIsLoading } from 'redux/seletors';
 
-export const Contacts = () => {
+const Contacts = () => {
   const isLoading = useSelector(selectIsLoading);
 
   return (
@@ -25,3 +25,5 @@ export const Contacts = () => {
     </div>
   );
 };
+
+export default Contacts;

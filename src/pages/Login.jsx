@@ -4,7 +4,7 @@ import { Section } from 'components/Section/Section';
 import { INPUT_NAME } from 'servises/constants';
 import { loginThunk } from 'redux/Auth/authOperations';
 
-export const Login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,3 +58,5 @@ export const Login = () => {
     </Section>
   );
 };
+
+export default Login;
