@@ -24,21 +24,17 @@ export const AppBar = () => {
   );
 };
 
-const MainNav = () => {
-  const { isLoggedIn } = useAuth();
-
-  return (
-    <nav>
-      <NaviLink to="/">Home</NaviLink>
-      {isLoggedIn && <NaviLink to="/contacts">Contacts</NaviLink>}
-    </nav>
-  );
-};
+const MainNav = () => (
+  <nav>
+    <NaviLink to="/">Home</NaviLink>
+    <NaviLink to="/contacts">Contacts</NaviLink>
+  </nav>
+);
 
 const AuthNav = () => (
   <nav>
     <NaviLink to="/register">Register</NaviLink>
-    <NaviLink to="/login">Login</NaviLink>
+    <NaviLink to="/login">Log in</NaviLink>
   </nav>
 );
 
@@ -49,7 +45,7 @@ const UserMenu = () => {
   return (
     <Div>
       <p>{userName}</p>
-      <button onClick={() => dispatch(logoutThunk())}>Logout</button>
+      <button onClick={() => dispatch(logoutThunk())}>Log out</button>
     </Div>
   );
 };

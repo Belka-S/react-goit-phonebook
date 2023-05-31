@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
 import { Section } from 'components/Section/Section';
 import { INPUT_NAME } from 'servises/constants';
 import { loginThunk } from 'redux/Auth/authOperations';
+import { Toast, notify } from 'components/Toast/Toast';
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const navigate = useNavigate();
+  const isBtnNotActive = email.length < 5 || password.length < 8;
 
   const handleChange = e => {
     switch (e.target.name) {
@@ -25,7 +29,11 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch(loginThunk({ email, password }));
+    dispatch(loginThunk({ email, password }))
+      .unwrap()
+      // .then(() => navigate('/'))
+      .catch(error => notify('Error happend! Try once again.'));
+
     setEmail('');
     setPassword('');
   };
@@ -40,6 +48,7 @@ const Login = () => {
             name={INPUT_NAME.EMAIL}
             value={email}
             onChange={handleChange}
+            required
           />
         </label>
         <label style={{ marginRight: '30px' }}>
@@ -49,12 +58,20 @@ const Login = () => {
             name={INPUT_NAME.PASSWORD}
             value={password}
             onChange={handleChange}
+            required
+            minLength={8}
           />
         </label>
-        <button type="submit" style={{ padding: '0 20px' }}>
-          Login
+        <button
+          type="submit"
+          disabled={isBtnNotActive}
+          style={{ padding: '0 20px' }}
+        >
+          Log in
         </button>
       </form>
+
+      <Toast />
     </Section>
   );
 };

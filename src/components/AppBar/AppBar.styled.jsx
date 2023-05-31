@@ -17,13 +17,16 @@ export const Header = styled.header`
 `;
 
 export const NaviLink = styled(NavLink)`
-  margin-right: 40px;
   padding: 2px 5px;
   border-radius: 4px;
   text-decoration: none;
   color: black;
   font-weight: 700;
   font-size: 20px;
+
+  &:not(:last-of-type) {
+    margin-right: 40px;
+  }
 
   &.active {
     color: white;

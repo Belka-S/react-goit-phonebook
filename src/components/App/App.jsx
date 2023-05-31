@@ -18,14 +18,6 @@ export const App = () => {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
 
-  const restrictedRoute = element => (
-    <RestrictedRoute component={element} redirectTo="/contacts" />
-  );
-
-  const privateRoute = element => (
-    <PrivateRote component={element} redirectTo="/login" />
-  );
-
   useEffect(() => {
     dispatch(refreshThunk());
   }, [dispatch]);
@@ -36,9 +28,9 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<AppBar />}>
             <Route index element={<Home />} />
-            <Route path="/contacts" element={privateRoute(<Contacts />)} />
-            <Route path="/login" element={restrictedRoute(<Login />)} />
-            <Route path="/register" element={restrictedRoute(<Register />)} />
+            <Route path="/contacts" element={privateRoute(Contacts)} />
+            <Route path="/login" element={restrictedRoute(Login)} />
+            <Route path="/register" element={restrictedRoute(Register)} />
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>
@@ -48,3 +40,11 @@ export const App = () => {
     </Section>
   );
 };
+
+const privateRoute = component => (
+  <PrivateRote component={component} redirectTo="/login" />
+);
+
+const restrictedRoute = component => (
+  <RestrictedRoute component={component} redirectTo="/contacts" />
+);
