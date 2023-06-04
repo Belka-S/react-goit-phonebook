@@ -3,15 +3,33 @@ import * as mockAPI from 'servises/mockAPI';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
-  async () => await mockAPI.fetchContacts()
+  async (_, thunkAPI) => {
+    try {
+      return await mockAPI.fetchContacts();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
 );
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async contact => await mockAPI.addContact(contact)
+  async (contact, thunkAPI) => {
+    try {
+      return await mockAPI.addContact(contact);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
 );
 
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async id => await mockAPI.deleteContact(id)
+  async (id, thunkAPI) => {
+    try {
+      return await mockAPI.deleteContact(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
 );
