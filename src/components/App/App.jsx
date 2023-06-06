@@ -6,9 +6,7 @@ import * as contactsAPI from 'redux/contactsAPI';
 import { OvalLoader } from 'components/Loader/OvalLoader';
 
 export const App = () => {
-  const { error, isLoading } = contactsAPI.useGetContactsQuery();
-
-  error && alert(error);
+  const { isFetching } = contactsAPI.useGetContactsQuery();
 
   return (
     <>
@@ -19,7 +17,7 @@ export const App = () => {
         <Filter /> <br />
         <ContactList />
       </Section>
-      {isLoading && <OvalLoader />}
+      {isFetching && <OvalLoader />}
     </>
   );
 };

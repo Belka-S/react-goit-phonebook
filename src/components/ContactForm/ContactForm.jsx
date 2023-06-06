@@ -27,14 +27,6 @@ export const ContactForm = () => {
   const { data: contacts } = contactsAPI.useGetContactsQuery();
   const [addContact, result] = contactsAPI.useAddContactMutation();
 
-  const handleAddContact = async values => {
-    try {
-      await addContact(values);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   const onSubmit = (values, actions) => {
     const isInContacts = contacts?.some(
       el => el.name.toLowerCase() === values.name.toLowerCase()
@@ -43,7 +35,7 @@ export const ContactForm = () => {
       return alert(`${values.name} is already in contacts!`);
     }
 
-    handleAddContact(values);
+    addContact(values);
     actions.resetForm();
   };
 
