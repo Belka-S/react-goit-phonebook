@@ -8,7 +8,7 @@ import { PERSIST, PURGE, REGISTER } from 'redux-persist';
 import { filterReducer } from './slice';
 import { contactsAPI } from './contactsAPI';
 
-export const rtkQueryErrorLogger = api => next => action => {
+const rtkQueryErrorLogger = api => next => action => {
   if (isRejected(action)) {
     console.warn('Rejected!');
     console.log(action.error.message);
