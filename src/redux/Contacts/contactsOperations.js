@@ -1,33 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as mockAPI from 'servises/mockAPI';
+import * as connectAPI from 'servises/connectAPI';
 
-export const fetchContacts = createAsyncThunk(
+export const fetchContactsThunk = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, thunkAPI) => {
     try {
-      return await mockAPI.fetchContacts();
+      return await connectAPI.fetchContacts();
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const addContact = createAsyncThunk(
+export const addContactThunk = createAsyncThunk(
   'contacts/addContact',
   async (contact, thunkAPI) => {
     try {
-      return await mockAPI.addContact(contact);
+      return await connectAPI.addContact(contact);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const deleteContact = createAsyncThunk(
+export const deleteContactThunk = createAsyncThunk(
   'contacts/deleteContact',
   async (id, thunkAPI) => {
     try {
-      return await mockAPI.deleteContact(id);
+      return await connectAPI.deleteContact(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

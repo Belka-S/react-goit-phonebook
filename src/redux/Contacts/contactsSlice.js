@@ -1,8 +1,12 @@
 import { combineReducers, createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import * as operations from './contactsOperations';
 
-const operations = [fetchContacts, addContact, deleteContact];
-const fn = type => operations.map(el => el[type]);
+const thunkArr = [
+  operations.fetchContactsThunk,
+  operations.addContactThunk,
+  operations.deleteContactThunk,
+];
+const fn = type => thunkArr.map(el => el[type]);
 
 // Contacts items
 const handleFetchContacts = (_, action) => action.payload;
@@ -17,9 +21,9 @@ const contactsItemsSlice = createSlice({
   initialState: [],
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.fulfilled, handleFetchContacts)
-      .addCase(addContact.fulfilled, handleAddContact)
-      .addCase(deleteContact.fulfilled, handleDeleteContact);
+      .addCase(operations.fetchContactsThunk.fulfilled, handleFetchContacts)
+      .addCase(operations.addContactThunk.fulfilled, handleAddContact)
+      .addCase(operations.deleteContactThunk.fulfilled, handleDeleteContact);
   },
 });
 // isLoading

@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/operations';
+import { addContactThunk } from 'redux/Contacts/contactsOperations';
 import { Form, Field, Label } from 'components/ContactForm/ContactForm.styled';
 import { ErrorMessage } from 'components/ContactForm/ContactForm.styled';
 import { selectContacts } from 'redux/seletors';
@@ -37,7 +37,7 @@ export const ContactForm = () => {
       return alert(`${values.name} is already in contacts!`);
     }
 
-    dispatch(addContact(values));
+    dispatch(addContactThunk(values));
     actions.resetForm();
   };
 
